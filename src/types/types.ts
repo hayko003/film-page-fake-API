@@ -30,3 +30,7 @@ export interface IResultFilmsSliceStateType {
     page: number,
     result: Array<FilmsType>,
 }
+
+export interface BackgroundStateType {
+    backgroundUrl: string | null
+}

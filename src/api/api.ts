@@ -1,6 +1,12 @@
 import axios from "axios";
 import { FilmsType, GenresType } from "../types/types";
 
+const apiKey = "803519ba7ff3afb03455d5aa8bb567c3";
+
+const instance = axios.create({
+  baseURL: "https://api.themoviedb.org/3",
+});
+
 type GetGenersReturnType = {
   genres: Array<GenresType>;
 };
@@ -10,23 +16,35 @@ type GetFilmReturnTyp = {
     results: Array<FilmsType> 
 }
 
-const apiKey = "803519ba7ff3afb03455d5aa8bb567c3";
+// type GetSelFilmType = {
+//   result: FilmsType
+// }
 
-const instane = axios.create({
-  baseURL: "https://api.themoviedb.org/3",
-});
+type GetSelFilmType = {
+  result: FilmsType
+}
 
 const API = {
   getGenres() {
-    return instane.get<GetGenersReturnType>(
+    return instance.get<GetGenersReturnType>(
       `/genre/movie/list?api_key=${apiKey}&language=en-US`
     );
   },
   getFilms(pageCount: number) {
-    return instane.get<GetFilmReturnTyp>(
+    return instance.get<GetFilmReturnTyp>(
       `/discover/movie?api_key=${apiKey}&language=en-US&page=${pageCount}`
     );
   },
+  // getOneFilm(id: number) {
+  //   return instane.get<GetSelFilmType>(
+  //     `/movie/${id}?api_key=${apiKey}&language=en-US`
+  //   )
+  // }
+  getOneFilm(id: number) {
+    return instance.get<GetSelFilmType>(
+      `/movie/${id}?api_key=${apiKey}&language=en-US`
+    )
+  }
 };
 
 export default API;
