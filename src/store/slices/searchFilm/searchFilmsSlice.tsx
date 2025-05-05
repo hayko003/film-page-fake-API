@@ -1,28 +1,36 @@
-import { createSlice,createAsyncThunk, PayloadAction  } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../../api/api";
 import { SearchState } from "../../../types/types";
 
 export const getSearchedFilms = createAsyncThunk(
-    "searchFilms",
-    async () => {
-        const res = await API.searchFilm()
-        return res.data.result
-    }
-)
+  "searchFilms",
+  async (query: string) => {
+    const res = await API.searchFilm(query);
+    return { results: res.data.results, query };
+  }
+);
 
-const initialState : SearchState= {
-   result: []
-}
+const initialState: SearchState = {
+  searchResults: [],
+  searchQuery: "",
+};
 
 const searchedSlice = createSlice({
-    name: "searchFilm",
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(getSearchedFilms.fulfilled, (state, action) => {
-            state.result = action.payload
-        })
+  name: "searchFilm",
+  initialState,
+  reducers: {
+    clearSearch(state) {
+        state.searchResults = [],
+        state.searchQuery = ""
     }
-})
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getSearchedFilms.fulfilled, (state, action) => {
+      state.searchResults = action.payload.results;
+      state.searchQuery = action.payload.query
+    });
+  },
+});
 
-export default searchedSlice.reducer
+export const { clearSearch } = searchedSlice.actions;
+export default searchedSlice.reducer;

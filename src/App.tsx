@@ -6,6 +6,7 @@ import FilmSection from "./Components/Filmsection/FilmSection";
 import "./App.css";
 import AboutFilm from "./Components/aboutFilm/aboutFilm";
 import { Routes, Route } from "react-router-dom";
+import SearchPage from "./Components/SearchPage/Searchpage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<FilmSection />} />
         <Route path="/films/:id" element={<AboutFilm />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
     </div>
   );

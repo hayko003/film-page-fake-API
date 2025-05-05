@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { FilmsType, GenresType } from "../types/types";
 
@@ -12,36 +13,37 @@ type GetGenersReturnType = {
 };
 
 type GetFilmReturnTyp = {
-    page: number,
-    results: Array<FilmsType> 
-}
+  page: number;
+  results: Array<FilmsType>;
+};
 
-type GetSelFilmType = {
-  result: FilmsType
-  text: string
-}
+type SearchFilmsReturnType = {
+  page: number;
+  results: Array<FilmsType>;
+  total_pages: number;
+  total_results: number;
+};
 
 const API = {
   getGenres() {
     return instance.get<GetGenersReturnType>(
-      `/genre/movie/list?api_key=${apiKey}&language=en-US`
+      `/genre/movie/list?api_key=${apiKey}&language=en-US&include_adult=false`
     );
   },
   getFilms(pageCount: number) {
     return instance.get<GetFilmReturnTyp>(
-      `/discover/movie?api_key=${apiKey}&language=en-US&page=${pageCount}`
+      `/discover/movie?api_key=${apiKey}&language=en-US&page=${pageCount}&include_adult=false`
     );
   },
   getOneFilm(id: number) {
-    return instance.get<GetSelFilmType>(
-      `/movie/${id}?api_key=${apiKey}&language=en-US`
-    )
+    return instance.get<FilmsType>(
+      `/movie/${id}?api_key=${apiKey}&language=en-US&include_adult=false`
+    );
   },
-  searchFilm(){
-    return instance.get<GetSelFilmType>(
-      `search/movie?api_key=${apiKey}&query=${text}`
-    )
-  }
+  searchFilm(query: string) {
+    return instance.get<SearchFilmsReturnType>(
+      `/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}&language=en-US&include_adult=false`
+    );
+  },
 };
-
-export default API;
+export default API

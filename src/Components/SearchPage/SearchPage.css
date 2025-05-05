@@ -1,0 +1,24 @@
+.search-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  width: 100%;
+  padding: 30px;
+}
+
+.search-grid img {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  object-fit: cover;
+}
+
+.search-results {
+  background-color: black;
+}
+
+.h3_title {
+  color: white;
+}

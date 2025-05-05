@@ -5,7 +5,8 @@ export const getFilmsThunk = createAsyncThunk<Array<FilmsType>, number>(
   "getFilmsThunk",
   async (page: number) => {
     const res = await API.getFilms(page);
-    return res.data.results;
+    const filtered = res.data.results.filter((film) => !film.adult);
+    return filtered;
   }
 );
 

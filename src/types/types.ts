@@ -36,7 +36,8 @@ export interface BackgroundStateType {
     backgroundUrl: string | null
 }
 
-
-export type SearchState = {
-    result: FilmsType[]
-}
+export interface SearchState {
+    searchResults: any[];
+    searchQuery: string;
+  }
+  
