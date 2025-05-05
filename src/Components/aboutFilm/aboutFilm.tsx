@@ -3,9 +3,8 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { selectFilmThunk } from "../../store/slices/Films/selectFilmSlice";
 import { setBackground } from "../../store/slices/backgroundSlice/backgroundSlice";
 import { useParams } from "react-router-dom";
-import "./aboutFilms.css";
-
-function AboutFilm(): any {
+import styles from "./AboutFilm.module.css";
+function AboutFilm() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const { result } = useAppSelector((state) => state.oneFilm);
@@ -29,30 +28,45 @@ function AboutFilm(): any {
           ? `url(https://image.tmdb.org/t/p/original${result.backdrop_path})`
           : undefined,
       }}
-      className="films"
+      className={styles.aboutFilmContainer}
     >
-      <div className="films_wrap">
+      <div className={styles.aboutFilmWrap}>
         {result && (
-          <div className="all_Wrap">
-            <div className="aboutFilm_wrap">
+          <div className={styles.aboutFilmContent}>
+            <div className={styles.posterContainer}>
               <img
                 src={`https://image.tmdb.org/t/p/w500${result.poster_path}`}
                 alt={result.title}
+                className={styles.posterImage}
               />
             </div>
-            <div className="aboutFilm_content">
-              <h1 className="title_h1_film">{result.title}</h1>
-              <p>Rating: {result.vote_average}</p>
-              <p>{result.overview}</p>
+            <div className={styles.infoContainer}>
+              <h1 className={styles.filmTitle}>
+                {result.title} 
+                <span className={styles.ageRating}>18+</span>
+              </h1>
+              <p className={styles.filmRating}>Rating: {result.vote_average}/10</p>
+              <p className={styles.filmOverview}>{result.overview}</p>
+              
+              <div className={styles.actionButtons}>
+                <button className={styles.watchButton}>Watch the movie</button>
+                <button className={styles.secondaryButton}>Trailer</button>
+              </div>
+              
+              <div className={styles.metaInfo}>
+                <p><strong>Release date:</strong> {result.release_date}</p>
+                <p><strong>Genre:</strong> {result.genres?.map(g => g.name).join(', ')}</p>
+              </div>
             </div>
           </div>
         )}
-      <iframe
-        // src={`https://www.youtube.com/embed/${result.trailerKey}`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
+{/*         
+        <iframe
+          className={styles.trailerIframe}
+          title="Трейлер"
+          frameBorder="0"
+          allowFullScreen
+        ></iframe> */}
       </div>
     </section>
   );

@@ -16,12 +16,9 @@ type GetFilmReturnTyp = {
     results: Array<FilmsType> 
 }
 
-// type GetSelFilmType = {
-//   result: FilmsType
-// }
-
 type GetSelFilmType = {
   result: FilmsType
+  text: string
 }
 
 const API = {
@@ -35,14 +32,14 @@ const API = {
       `/discover/movie?api_key=${apiKey}&language=en-US&page=${pageCount}`
     );
   },
-  // getOneFilm(id: number) {
-  //   return instane.get<GetSelFilmType>(
-  //     `/movie/${id}?api_key=${apiKey}&language=en-US`
-  //   )
-  // }
   getOneFilm(id: number) {
     return instance.get<GetSelFilmType>(
       `/movie/${id}?api_key=${apiKey}&language=en-US`
+    )
+  },
+  searchFilm(){
+    return instance.get<GetSelFilmType>(
+      `search/movie?api_key=${apiKey}&query=${text}`
     )
   }
 };

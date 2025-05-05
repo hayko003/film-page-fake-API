@@ -9,6 +9,7 @@ export type genresSliceStateType = {
     genres: Array< GenresType>
 }
 
+
 export interface FilmsType {
     adult: boolean,
     backdrop_path: string
@@ -33,4 +34,9 @@ export interface IResultFilmsSliceStateType {
 
 export interface BackgroundStateType {
     backgroundUrl: string | null
+}
+
+
+export type SearchState = {
+    result: FilmsType[]
 }
